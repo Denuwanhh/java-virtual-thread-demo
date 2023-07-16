@@ -1,1 +1,1 @@
-# java-virtual-thread-demo
+# Java Virtual Thread
