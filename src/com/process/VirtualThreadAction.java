@@ -1,3 +1,8 @@
+package com.process;
+
+import com.task.CPUIntensiveTask;
+import com.task.IOIntensiveTask;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.ExecutionException;
@@ -20,11 +25,17 @@ public class VirtualThreadAction {
                 // Perform the task within the thread
 
                 // Simulate some work
-                try {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(sleepTime);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                IOIntensiveTask ioInt = new IOIntensiveTask();
+//                ioInt.runIOIntensiveTask("D:\\Projects\\java-virtual-thread-demo\\resources\\File.txt");
+
+                CPUIntensiveTask cpuInt = new CPUIntensiveTask();
+                cpuInt.runCPUIntensiveTask();
+
             });
         }
 
@@ -35,6 +46,6 @@ public class VirtualThreadAction {
                 e.printStackTrace();
             }
         }
-        return Duration.between(actionStart, Instant.now()).toNanos();
+        return Duration.between(actionStart, Instant.now()).toMillis();
     }
 }

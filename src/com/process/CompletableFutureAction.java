@@ -1,10 +1,16 @@
+package com.process;
+
+import com.task.CPUIntensiveTask;
+import com.task.IOIntensiveTask;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
 public class CompletableFutureAction {
 
-    public Long runCompletableFutureAction(int iterations, long sleepTime){
+    public Long runCompletableFutureAction(int iterations, long sleepTime) {
         // Create an array of CompletableFuture
         CompletableFuture<String>[] completableFutures = new CompletableFuture[iterations];
 
@@ -14,13 +20,23 @@ public class CompletableFutureAction {
         for (int i = 0; i < iterations; i++) {
             final int index = i;
             completableFutures[i] = CompletableFuture.supplyAsync(() -> {
-                        try {
-                            Thread.sleep(sleepTime);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        return "Task " + index;
-                    });
+
+//                        try {
+//                            //Thread.sleep(sleepTime);
+//
+//
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+
+//                IOIntensiveTask ioInt = new IOIntensiveTask();
+//                ioInt.runIOIntensiveTask("D:\\Projects\\java-virtual-thread-demo\\resources\\File.txt");
+
+                CPUIntensiveTask cpuInt = new CPUIntensiveTask();
+                cpuInt.runCPUIntensiveTask();
+
+                return "Task " + index;
+            });
         }
 
         // Wait for all CompletableFuture to complete and collect the results
@@ -35,7 +51,7 @@ public class CompletableFutureAction {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return Duration.between(actionStart, Instant.now()).toNanos();
+        return Duration.between(actionStart, Instant.now()).toMillis();
     }
 
 }
