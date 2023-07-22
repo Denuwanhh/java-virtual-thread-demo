@@ -1,21 +1,24 @@
+import java.time.Duration;
+import java.time.Instant;
+
 public class ThreadAction {
 
-    public void runThreadAction(int iterations, long sleepTime){
+    public Long runThreadAction(int iterations, long sleepTime){
         Thread threads[] = new Thread[iterations];
+
+        Instant actionStart = Instant.now();
 
         // Create and start multiple threads in a loop
         for (int i = 0; i < iterations; i++) {
             final int index = i;
             threads[i] = new Thread(() -> {
                 // Perform the task within the thread
-                //System.out.println("Thread " + index + " started");
                 // Simulate some work
                 try {
                     Thread.sleep(sleepTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                //System.out.println("Thread " + index + " completed");
             });
             threads[i].start(); // Start the thread
         }
@@ -27,5 +30,6 @@ public class ThreadAction {
                 e.printStackTrace();
             }
         }
+        return Duration.between(actionStart, Instant.now()).toNanos();
     }
 }

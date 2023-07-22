@@ -6,28 +6,12 @@ import java.time.Instant;
 public class Main {
     public static void main(String[] args) {
 
-        int iterations = 1000;
-        long sleepTime = 100;
+        int iterations = 30000;
+        long sleepTime = 900;
 
-        Instant actionStart = Instant.now();
-
-        CompletableFutureAction completableFutureAction  = new CompletableFutureAction();
-        completableFutureAction.runCompletableFutureAction(iterations, sleepTime);
-
-        System.out.println("Completable Future Action total elapsed time : " + Duration.between(actionStart, Instant.now()).toMillis());
-
-        actionStart = Instant.now();
-
-        ThreadAction threadAction = new ThreadAction();
-        threadAction.runThreadAction(iterations, sleepTime);
-
-        System.out.println("Thread Action total elapsed time : " + Duration.between(actionStart, Instant.now()).toMillis());
-
-        actionStart = Instant.now();
-
-        VirtualThreadAction virtualThreadAction = new VirtualThreadAction();
-        virtualThreadAction.runVirtualThreadAction(iterations, sleepTime);
-
-        System.out.println("Virtual Thread Action elapsed time : " + Duration.between(actionStart, Instant.now()).toMillis());
+        //System.out.println("Sequential Action total elapsed time : " + new SequentialAction().runSequentialAction(iterations, sleepTime));
+        //System.out.println("Completable Future Action total elapsed time : " + new CompletableFutureAction().runCompletableFutureAction(iterations, sleepTime));
+        System.out.println("Thread Action total elapsed time : " + new ThreadAction().runThreadAction(iterations, sleepTime));
+        //System.out.println("Virtual Thread Action elapsed time : " + new VirtualThreadAction().runVirtualThreadAction(iterations, sleepTime));
     }
 }
